@@ -1,0 +1,14 @@
+.next
+next-env.d.ts
+
+node_modules
+
+yarn.lock
+package-lock.json
+
+public/*
+!public/locales
+
+!.storybook
+next-sitemap.config.js
+.gitlab-ci.yml

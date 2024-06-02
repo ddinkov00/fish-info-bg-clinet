@@ -10,10 +10,13 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Typography,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import { nameof } from 'ts-simple-nameof';
 
 import { handleLogin } from '@/utils/authenticationHelper';
+import { Routes } from '@/utils/constants';
 
 type LoginFormData = {
   email: string;
@@ -22,6 +25,7 @@ type LoginFormData = {
 
 export const LoginForm = () => {
   const { control, formState } = useForm<LoginFormData>({ mode: 'onSubmit' });
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -83,16 +87,41 @@ export const LoginForm = () => {
           )}
         />
 
-        <Button
-          fullWidth
-          size="large"
-          variant="contained"
-          color="primary"
-          type="submit"
-          disabled={!formState.isValid}
-        >
-          Вход
-        </Button>
+        <Box width="100%">
+          <Button
+            fullWidth
+            size="large"
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={!formState.isValid}
+          >
+            Вход
+          </Button>
+
+          <Box
+            width="100%"
+            marginTop="10px"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            gap="5px"
+          >
+            <Typography fontSize="small" color="black">
+              Все още намаш акаунт?
+            </Typography>
+            <Button
+              disableRipple
+              variant="text"
+              sx={{ padding: 0 }}
+              onClick={() => router.push(Routes.register)}
+            >
+              <Typography fontSize="small" fontWeight="regular">
+                Регистрирай се!
+              </Typography>
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </Form>
   );

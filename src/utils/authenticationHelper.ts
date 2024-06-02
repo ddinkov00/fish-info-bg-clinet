@@ -32,5 +32,5 @@ export const handleLogin = async (email: string, password: string) => {
   localStorage.setItem(LocalStorageKeys.accessToken, loginData.accessToken);
   localStorage.setItem(LocalStorageKeys.refreshToken, loginData.refreshToken);
 
-  Router.push(Routes.login);
+  Router.push(Routes.home);
 };

@@ -5,6 +5,7 @@ import WaterIcon from '@mui/icons-material/Water';
 import { Box, Tab, Tabs } from '@mui/material';
 
 import { Layout } from '@/components/Layout';
+import { CloseSeasonsTable } from '@/components/Prohibitions/CloseSeasonsTable';
 import { CustomTabPanel } from '@/components/common/CustomTabPanel';
 
 const Prohibitions = () => {
@@ -15,7 +16,7 @@ const Prohibitions = () => {
   };
 
   return (
-    <Box maxWidth="935px" marginX="auto" display="flex" flexDirection="column">
+    <Box maxWidth="1000px" marginX="auto" display="flex" flexDirection="column">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} centered>
           <Tab icon={<SetMealIcon />} iconPosition="start" disableRipple label="Видове риби" />
@@ -24,7 +25,7 @@ const Prohibitions = () => {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        Item One
+        <CloseSeasonsTable />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Item Two

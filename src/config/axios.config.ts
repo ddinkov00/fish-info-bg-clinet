@@ -16,7 +16,7 @@ export const fishInfoApiClient = axios.create({
 
 fishInfoApiClient.interceptors.request.use(
   async (config) => {
-    const token = localStorage.getItem(LocalStorageKeys.refreshToken);
+    const token = localStorage.getItem(LocalStorageKeys.accessToken);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

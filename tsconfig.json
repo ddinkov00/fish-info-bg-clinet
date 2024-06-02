@@ -47,7 +47,5 @@
     "**/*.ts",
     "**/*.tsx",
     ".storybook/*.ts",
-    "src/config/theme.js",
-    "src/config/createEmotionCache.js"
   ]
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Controller, Form, useForm } from 'react-hook-form';
+import { Controller, Form, useForm, useWatch } from 'react-hook-form';
 
-import { LoginRounded, Visibility, VisibilityOff } from '@mui/icons-material';
+import { AppRegistrationRounded, Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -11,21 +11,32 @@ import {
   InputLabel,
   OutlinedInput,
 } from '@mui/material';
-import { nameof } from 'ts-simple-nameof';
 
+import { register } from '@/api/identityController';
+import { RegisterRequest } from '@/api/types/identity';
 import { handleLogin } from '@/utils/authenticationHelper';
 
-type LoginFormData = {
+type RegisterFormData = {
   email: string;
   password: string;
+  reTypePassword: string;
 };
 
-export const LoginForm = () => {
-  const { control, formState } = useForm<LoginFormData>({ mode: 'onSubmit' });
+export const RegisterForm = () => {
+  const { control, formState } = useForm<RegisterFormData>();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showReTypePassword, setShowReTypePassword] = useState(false);
 
-  const onSubmit = async (data: LoginFormData) => {
+  const password = useWatch({ control, name: 'password' });
+
+  const onSubmit = async (data: RegisterFormData) => {
+    const registerRequest: RegisterRequest = {
+      email: data.email,
+      password: data.password,
+    };
+
+    await register(registerRequest);
     await handleLogin(data.email, data.password);
   };
 
@@ -40,7 +51,7 @@ export const LoginForm = () => {
         width="400px"
         padding="20px"
       >
-        <LoginRounded color="primary" sx={{ height: 100, width: 100 }} />
+        <AppRegistrationRounded color="primary" sx={{ height: 100, width: 100 }} />
 
         <Controller
           name="email"
@@ -56,7 +67,7 @@ export const LoginForm = () => {
           render={({ field }) => (
             <FormControl {...field} variant="outlined" fullWidth>
               <InputLabel>Имейл</InputLabel>
-              <OutlinedInput id={nameof<LoginFormData>((x) => x.email)} label="Имейл" />
+              <OutlinedInput label="Имейл" />
             </FormControl>
           )}
         />
@@ -83,6 +94,33 @@ export const LoginForm = () => {
           )}
         />
 
+        <Controller
+          name="reTypePassword"
+          control={control}
+          rules={{
+            required: true,
+            validate: {
+              doesMath: (value) => value === password,
+            },
+          }}
+          render={({ field }) => (
+            <FormControl {...field} variant="outlined" fullWidth>
+              <InputLabel>Потвърди парола</InputLabel>
+              <OutlinedInput
+                type={showReTypePassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShowReTypePassword(!showReTypePassword)}>
+                      {showReTypePassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Потвърди парола"
+              />
+            </FormControl>
+          )}
+        />
+
         <Button
           fullWidth
           size="large"
@@ -91,7 +129,7 @@ export const LoginForm = () => {
           type="submit"
           disabled={!formState.isValid}
         >
-          Вход
+          Регистрация
         </Button>
       </Box>
     </Form>

@@ -7,5 +7,5 @@ type RightPanelProps = {
 export const RightPanel = (props: RightPanelProps) => {
   const { xs } = props;
 
-  return <Grid item xs={xs} sx={{ borderLeft: 1, borderColor: 'gray' }} />;
+  return <Grid item xs={xs} sx={{ borderLeft: 1, borderColor: '#dbdbdb' }} />;
 };

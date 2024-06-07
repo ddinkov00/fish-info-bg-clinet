@@ -1,12 +1,12 @@
 import type { WaterSourceProhibitionResponse } from '@/api/types/waterSourceProhibition';
 import { WaterSourceProhibitionType } from '@/api/types/waterSourceProhibition';
-import type { MapMarker } from '@/pages/prohibitions';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import MapIcon from '@mui/icons-material/Map';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import { Box, Collapse, IconButton, TableCell, TableRow, Typography } from '@mui/material';
 import { useState } from 'react';
+import type { MapMarker } from './MapsModal';
 
 type WaterSourceProhibitionRowProps = {
   row: WaterSourceProhibitionResponse;

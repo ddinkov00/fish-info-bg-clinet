@@ -3,4 +3,5 @@ export const Endpoints = {
   register: 'identity/register',
   refreshToken: 'identity/refresh',
   closeSeasons: 'closeSeasons',
+  waterSourceProhibitions: 'waterSourceProhibitions',
 };

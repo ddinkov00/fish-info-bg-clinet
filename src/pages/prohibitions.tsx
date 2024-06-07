@@ -7,6 +7,7 @@ import { Box, Tab, Tabs } from '@mui/material';
 
 import { Layout } from '@/components/Layout';
 import { CloseSeasonsTable } from '@/components/Prohibitions/CloseSeasonsTable';
+import { WaterSourceProhibitionsTable } from '@/components/Prohibitions/WaterSourceProhibitionsTable';
 import { CustomTabPanel } from '@/components/common/CustomTabPanel';
 
 const Prohibitions = () => {
@@ -29,7 +30,7 @@ const Prohibitions = () => {
         <CloseSeasonsTable />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <WaterSourceProhibitionsTable />
       </CustomTabPanel>
     </Box>
   );

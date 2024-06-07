@@ -10,7 +10,7 @@ export default function Document() {
         <link
           href="https://fonts.googleapis.com/css2?family=Seymour+One&display=swap"
           rel="stylesheet"
-        ></link>
+        />
       </Head>
       <body>
         <Main />

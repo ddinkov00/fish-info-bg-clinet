@@ -1,28 +1,27 @@
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 import { Button, IconButton, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
 
-import { MenuItemEnum, getMenuItemConfig } from '@/utils/menuItem';
+import type { MenuItemEnum } from '@/utils/menuItem';
+import { getMenuItemConfig } from '@/utils/menuItem';
 
 type MenuItemButtonProps = {
   menuKey: MenuItemEnum;
   selected: MenuItemEnum;
+  setShowAddPostModal: Dispatch<SetStateAction<boolean>>;
   setSelected: Dispatch<SetStateAction<MenuItemEnum>>;
   smallVersion: boolean;
 };
 
 export const MenuItemButton = (props: MenuItemButtonProps) => {
-  const { menuKey, selected, setSelected, smallVersion } = props;
-
-  const router = useRouter();
+  const { menuKey, selected, setShowAddPostModal, setSelected, smallVersion } = props;
 
   const isSelected = selected === menuKey;
-  const config = getMenuItemConfig()[menuKey];
+  const config = getMenuItemConfig(setShowAddPostModal)[menuKey];
 
   const onClick = () => {
     setSelected(menuKey);
-    router.push(config.route);
+    config.onClick();
   };
 
   if (smallVersion) {

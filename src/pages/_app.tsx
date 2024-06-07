@@ -1,7 +1,7 @@
-import { ReactElement, ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 import { QueryClientProvider } from '@tanstack/react-query';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 
 import { queryClient } from '@/config/querryClient.config';

@@ -1,14 +1,8 @@
-import { Dayjs } from 'dayjs';
+import type { Dayjs } from 'dayjs';
 
 import { EMPTY_STRING } from './constants';
 
-export const mapDateToDayAndMonth = (date: Dayjs): string => {
-  return `${date.date()} ${mapMonthToString(date.month())}`;
-};
-
 const mapMonthToString = (month: number) => {
-  console.log(month);
-
   switch (month) {
     case 0:
       return 'Януари';
@@ -37,4 +31,8 @@ const mapMonthToString = (month: number) => {
     default:
       return EMPTY_STRING;
   }
+};
+
+export const mapDateToDayAndMonth = (date: Dayjs): string => {
+  return `${date.date()} ${mapMonthToString(date.month())}`;
 };

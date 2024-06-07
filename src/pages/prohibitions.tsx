@@ -1,4 +1,5 @@
-import { ReactElement, useState } from 'react';
+import type { ReactElement } from 'react';
+import { useState } from 'react';
 
 import SetMealIcon from '@mui/icons-material/SetMeal';
 import WaterIcon from '@mui/icons-material/Water';

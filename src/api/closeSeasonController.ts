@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fishInfoApiClient } from '@/config/axios.config';
 
 import { Endpoints } from './endpoints';
-import { CloseSeasonsResponse } from './types/closeSeasons';
+import type { CloseSeasonsResponse } from './types/closeSeasons';
 
 export const getCloseSeasons = async () => {
   const response = await fishInfoApiClient.get(Endpoints.closeSeasons);

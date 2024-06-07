@@ -4,9 +4,12 @@ import PhishingIcon from '@mui/icons-material/Phishing';
 import { Button, Grid, Typography, useMediaQuery } from '@mui/material';
 import { useRouter } from 'next/router';
 
-import { RouteValues } from '@/utils/constants';
-import { MenuItem, MenuItemData, MenuItemEnum, mapPathToMenuItem } from '@/utils/menuItem';
+import type { RouteValues } from '@/utils/constants';
+import type { MenuItemEnum } from '@/utils/menuItem';
+import { MenuItem, MenuItemData, mapPathToMenuItem } from '@/utils/menuItem';
 
+import { AddPostForm } from '../Posts/AddPostForm';
+import { CustomModal } from '../common/CustomModal';
 import { MenuItemButton } from './MenuItemButton';
 
 type LeftPanelProps = {
@@ -18,67 +21,92 @@ export const LeftPanel = (props: LeftPanelProps) => {
 
   const router = useRouter();
   const [selectedMenu, setSelectedMenu] = useState<MenuItemEnum>(MenuItem.Home);
+  const [showAddPostModal, setShowAddPostModal] = useState(true);
 
   const smallVersion = useMediaQuery(`(max-width:1170px)`);
 
   const menuItems = MenuItemData();
+  const path = router.asPath as RouteValues;
 
   useEffect(() => {
-    const path = router.asPath as RouteValues;
     setSelectedMenu(mapPathToMenuItem(path));
   }, [router]);
 
-  return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="space-between"
-      paddingX={smallVersion ? 0 : '24px'}
-      paddingTop="33px"
-      item
-      xs={xs}
-      sx={{ borderRight: 1, borderColor: '#dbdbdb' }}
-    >
-      <Grid
-        item
-        container
-        alignItems={smallVersion ? 'center' : 'flex-start'}
-        direction="column"
-        gap="30px"
-      >
-        <Grid item>
-          <Button disableRipple style={{ backgroundColor: 'transparent' }} variant="text">
-            {smallVersion ? (
-              <PhishingIcon sx={{ width: 50, height: 50, paddingX: 0 }} />
-            ) : (
-              <Typography variant="h6" noWrap color="primary" fontFamily="Seymour One">
-                FishInfo
-              </Typography>
-            )}
-          </Button>
-        </Grid>
+  const onModalClose = () => {
+    setShowAddPostModal(false);
+    setSelectedMenu(mapPathToMenuItem(path));
+  };
 
+  return (
+    <>
+      {showAddPostModal && (
+        <CustomModal
+          title="Качи пост"
+          isOpen={showAddPostModal}
+          closeButtonTitle="Затвори"
+          actionButtonTitle="Kaчи"
+          onCloseAction={onModalClose}
+          onCloseButtonAction={onModalClose}
+          onModalAction={() => {
+            throw new Error('Function not implemented.');
+          }}
+        >
+          <AddPostForm />
+        </CustomModal>
+      )}
+
+      <Grid
+        container
+        direction="column"
+        justifyContent="space-between"
+        paddingX={smallVersion ? 0 : '24px'}
+        paddingTop="33px"
+        item
+        xs={xs}
+        sx={{ borderRight: 1, borderColor: '#dbdbdb' }}
+      >
         <Grid
-          container
           item
+          container
           alignItems={smallVersion ? 'center' : 'flex-start'}
           direction="column"
-          gap="10px"
+          gap="30px"
         >
-          {menuItems.map((x) => {
-            return (
-              <Grid key={`menu-item-${x}`} item>
-                <MenuItemButton
-                  smallVersion={smallVersion}
-                  menuKey={x}
-                  selected={selectedMenu}
-                  setSelected={setSelectedMenu}
-                />
-              </Grid>
-            );
-          })}
+          <Grid item>
+            <Button disableRipple style={{ backgroundColor: 'transparent' }} variant="text">
+              {smallVersion ? (
+                <PhishingIcon sx={{ width: 50, height: 50, paddingX: 0 }} />
+              ) : (
+                <Typography variant="h6" noWrap color="primary" fontFamily="Seymour One">
+                  FishInfo
+                </Typography>
+              )}
+            </Button>
+          </Grid>
+
+          <Grid
+            container
+            item
+            alignItems={smallVersion ? 'center' : 'flex-start'}
+            direction="column"
+            gap="10px"
+          >
+            {menuItems.map((x) => {
+              return (
+                <Grid key={`menu-item-${x}`} item>
+                  <MenuItemButton
+                    smallVersion={smallVersion}
+                    menuKey={x}
+                    selected={selectedMenu}
+                    setSelected={setSelectedMenu}
+                    setShowAddPostModal={setShowAddPostModal}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };

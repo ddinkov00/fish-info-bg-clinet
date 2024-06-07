@@ -44,7 +44,7 @@ export const CloseSeasonsTable = () => {
       startDate: mapDateToDayAndMonth(startDate),
       endDate: mapDateToDayAndMonth(endDate),
       altitude,
-      status: dateNow.isBefore(startDate) || dateNow.isAfter(endDate) ? true : false,
+      status: !!(dateNow.isBefore(startDate) || dateNow.isAfter(endDate)),
     };
   });
 

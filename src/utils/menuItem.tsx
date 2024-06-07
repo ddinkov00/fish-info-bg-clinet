@@ -1,15 +1,19 @@
-import { ReactNode } from 'react';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
 import DoNotTouchOutlinedIcon from '@mui/icons-material/DoNotTouchOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import Router from 'next/router';
 
-import { RouteValues, Routes } from './constants';
+import type { RouteValues, Routes } from './constants';
 
 export const MenuItem = {
   Home: 'Home',
   Prohibitions: 'Prohibitions',
+  AddPost: 'AddPost',
 } as const;
 
 export const MenuItemData = () => Array.from(Object.values(MenuItem));
@@ -22,22 +26,33 @@ type MenuItemConfig = {
     text: string;
     icon: ReactNode;
     iconSelected: ReactNode;
-    route: keyof typeof Routes;
+    onClick: () => void;
+    route?: keyof typeof Routes;
   };
 };
 
-export const getMenuItemConfig = (): MenuItemConfig => ({
+export const getMenuItemConfig = (
+  setShowAddPostModal: Dispatch<SetStateAction<boolean>>,
+): MenuItemConfig => ({
   Home: {
     text: 'Начало',
     icon: <HomeOutlinedIcon />,
     iconSelected: <HomeIcon />,
+    onClick: () => Router.push('home'),
     route: 'home',
   },
   Prohibitions: {
     text: 'Забрани',
     icon: <DoNotTouchOutlinedIcon />,
     iconSelected: <DoNotTouchIcon />,
+    onClick: () => Router.push('prohibitions'),
     route: 'prohibitions',
+  },
+  AddPost: {
+    text: 'Добави',
+    icon: <AddCircleOutlineOutlinedIcon />,
+    iconSelected: <AddCircleOutlinedIcon />,
+    onClick: () => setShowAddPostModal(false),
   },
 });
 

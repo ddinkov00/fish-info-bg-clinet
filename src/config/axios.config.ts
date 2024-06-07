@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-import { handelUnauthorized } from '@/utils/authenticationHelper';
-import { LocalStorageKeys } from '@/utils/constants';
+import { LocalStorageKeys, Routes } from '@/utils/constants';
 
+import { refreshToken } from '@/api/identityController';
+import Router from 'next/router';
 import { envConfig } from './environment.config';
 
 export const fishInfoApiClient = axios.create({
@@ -30,12 +31,25 @@ fishInfoApiClient.interceptors.request.use(
 
 fishInfoApiClient.interceptors.response.use(
   async (config) => config,
-  async (error) => {
+  async (error): Promise<any> => {
     const responseStatusCode = error.response ? error.response.status : null;
     if (responseStatusCode === 401 || responseStatusCode === 403) {
-      await handelUnauthorized();
+      const refreshTokenValue = localStorage.getItem(LocalStorageKeys.refreshToken);
+
+      if (!refreshTokenValue) {
+        Router.push(Routes.login);
+        return;
+      }
+
+      try {
+        const refreshTokenData = await refreshToken({ refreshToken: refreshTokenValue });
+        localStorage.setItem(LocalStorageKeys.accessToken, refreshTokenData.accessToken);
+        localStorage.setItem(LocalStorageKeys.refreshToken, refreshTokenData.refreshToken);
+      } catch (_) {
+        Router.push(Routes.login);
+      }
     }
 
-    return Promise.reject(error);
+    Promise.reject(error);
   },
 );

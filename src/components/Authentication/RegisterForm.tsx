@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 import { register } from '@/api/identityController';
-import { RegisterRequest } from '@/api/types/identity';
+import type { RegisterRequest } from '@/api/types/identity';
 import { handleLogin } from '@/utils/authenticationHelper';
 
 type RegisterFormData = {

@@ -8,8 +8,6 @@ import type { RouteValues } from '@/utils/constants';
 import type { MenuItemEnum } from '@/utils/menuItem';
 import { MenuItem, MenuItemData, mapPathToMenuItem } from '@/utils/menuItem';
 
-import { AddPostForm } from '../Posts/AddPostForm';
-import { CustomModal } from '../common/CustomModal';
 import { MenuItemButton } from './MenuItemButton';
 
 type LeftPanelProps = {
@@ -21,7 +19,7 @@ export const LeftPanel = (props: LeftPanelProps) => {
 
   const router = useRouter();
   const [selectedMenu, setSelectedMenu] = useState<MenuItemEnum>(MenuItem.Home);
-  const [showAddPostModal, setShowAddPostModal] = useState(true);
+  const [_, setShowAddPostModal] = useState(true);
 
   const smallVersion = useMediaQuery(`(max-width:1170px)`);
 
@@ -32,28 +30,18 @@ export const LeftPanel = (props: LeftPanelProps) => {
     setSelectedMenu(mapPathToMenuItem(path));
   }, [router]);
 
-  const onModalClose = () => {
-    setShowAddPostModal(false);
-    setSelectedMenu(mapPathToMenuItem(path));
-  };
+  // const onModalClose = () => {
+  //   setShowAddPostModal(false);
+  //   setSelectedMenu(mapPathToMenuItem(path));
+  // };
 
   return (
     <>
-      {showAddPostModal && (
-        <CustomModal
-          title="Качи пост"
-          isOpen={showAddPostModal}
-          closeButtonTitle="Затвори"
-          actionButtonTitle="Kaчи"
-          onCloseAction={onModalClose}
-          onCloseButtonAction={onModalClose}
-          onModalAction={() => {
-            throw new Error('Function not implemented.');
-          }}
-        >
+      {/* {showAddPostModal && (
+        <CustomModal title="Качи пост" isOpen={showAddPostModal} onCloseAction={onModalClose}>
           <AddPostForm />
         </CustomModal>
-      )}
+      )} */}
 
       <Grid
         container

@@ -4,6 +4,7 @@ export type EnvironmentConfig = {
   fishInfoApiBaseUrl: string;
   fishInfoApiTimeout: number;
   queryStaleTime: number;
+  mapsApiKey: string;
 };
 
 const getConfig = (): EnvironmentConfig => {
@@ -12,6 +13,8 @@ const getConfig = (): EnvironmentConfig => {
     fishInfoApiTimeout: Number(process.env.NEXT_PUBLIC_FISH_INFO_API_TIMEOUT_SECONDS) * 1000,
 
     queryStaleTime: Number(process.env.NEXT_PUBLIC_QUERY_STALE_TIME_SECONDS) * 1000,
+
+    mapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? EMPTY_STRING,
   };
 };
 

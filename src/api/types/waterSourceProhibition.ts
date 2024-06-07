@@ -1,4 +1,5 @@
 export type WaterSourceProhibitionMarker = {
+  id: number;
   latitude: number;
   longitude: number;
 };
@@ -10,7 +11,7 @@ export enum WaterSourceProhibitionType {
 
 export type WaterSourceProhibitionResponse = {
   id: number;
-  name: number;
+  name: string;
   description: string;
   regionName: string;
   type: WaterSourceProhibitionType;

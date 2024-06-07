@@ -10,9 +10,16 @@ import {
   TableRow,
 } from '@mui/material';
 import { useState } from 'react';
+import type { MapMarker } from './MapsModal';
 import { WaterSourceProhibitionRow } from './WaterSourceProhibitionRow';
 
-export const WaterSourceProhibitionsTable = () => {
+type WaterSourceProhibitionsTableProps = {
+  openMap: (title: string, markers: MapMarker[]) => void;
+};
+
+export const WaterSourceProhibitionsTable = (props: WaterSourceProhibitionsTableProps) => {
+  const { openMap } = props;
+
   const { data } = useGetWaterSourceProhibitions();
 
   const [page, setPage] = useState(0);
@@ -44,7 +51,7 @@ export const WaterSourceProhibitionsTable = () => {
           </TableHead>
           <TableBody>
             {tableData.map((row) => (
-              <WaterSourceProhibitionRow row={row} />
+              <WaterSourceProhibitionRow key={row.id} row={row} openMap={openMap} />
             ))}
           </TableBody>
         </Table>

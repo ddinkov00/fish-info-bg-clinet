@@ -1,20 +1,20 @@
-import {
-  WaterSourceProhibitionResponse,
-  WaterSourceProhibitionType,
-} from '@/api/types/waterSourceProhibition';
+import type { WaterSourceProhibitionResponse } from '@/api/types/waterSourceProhibition';
+import { WaterSourceProhibitionType } from '@/api/types/waterSourceProhibition';
+import type { MapMarker } from '@/pages/prohibitions';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import MapIcon from '@mui/icons-material/Map';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import { Box, Collapse, IconButton, TableCell, TableRow, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 type WaterSourceProhibitionRowProps = {
   row: WaterSourceProhibitionResponse;
+  openMap: (title: string, markers: MapMarker[]) => void;
 };
 
 export const WaterSourceProhibitionRow = (props: WaterSourceProhibitionRowProps) => {
-  const { row } = props;
+  const { row, openMap } = props;
   const [open, setOpen] = useState(false);
   const [buttonHover, setButtonHover] = useState(false);
 
@@ -22,7 +22,7 @@ export const WaterSourceProhibitionRow = (props: WaterSourceProhibitionRowProps)
     row.type === WaterSourceProhibitionType.Prohibited ? 'пълна забрана' : 'хвани и пусни';
 
   return (
-    <React.Fragment>
+    <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton size="small" onClick={() => setOpen(!open)}>
@@ -36,10 +36,23 @@ export const WaterSourceProhibitionRow = (props: WaterSourceProhibitionRowProps)
         <TableCell align="right">{type}</TableCell>
         <TableCell align="center" sx={{ marginBottom: 0, borderBottom: 0 }}>
           <IconButton
+            disabled={row.markers.length === 0}
             onMouseOver={() => setButtonHover(true)}
             onMouseOut={() => setButtonHover(false)}
+            onClick={() =>
+              openMap(
+                row.name,
+                row.markers.map((x) => {
+                  return { id: x.id, lat: x.latitude, lng: x.longitude };
+                }),
+              )
+            }
           >
-            {buttonHover ? <MapIcon color="primary" /> : <MapOutlinedIcon color="primary" />}
+            {buttonHover ? (
+              <MapIcon color="primary" />
+            ) : (
+              <MapOutlinedIcon color={row.markers.length === 0 ? 'disabled' : 'primary'} />
+            )}
           </IconButton>
         </TableCell>
       </TableRow>
@@ -55,6 +68,6 @@ export const WaterSourceProhibitionRow = (props: WaterSourceProhibitionRowProps)
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
 };

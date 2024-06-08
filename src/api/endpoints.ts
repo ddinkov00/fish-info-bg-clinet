@@ -4,4 +4,5 @@ export const Endpoints = {
   refreshToken: 'identity/refresh',
   closeSeasons: 'closeSeasons',
   waterSourceProhibitions: 'waterSourceProhibitions',
+  post: 'post',
 };

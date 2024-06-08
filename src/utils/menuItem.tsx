@@ -52,7 +52,7 @@ export const getMenuItemConfig = (
     text: 'Добави',
     icon: <AddCircleOutlineOutlinedIcon />,
     iconSelected: <AddCircleOutlinedIcon />,
-    onClick: () => setShowAddPostModal(false),
+    onClick: () => setShowAddPostModal(true),
   },
 });
 

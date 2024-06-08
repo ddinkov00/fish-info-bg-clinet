@@ -41,7 +41,7 @@ export const LeftPanel = (props: LeftPanelProps) => {
     <>
       {showAddPostModal && (
         <CustomModal title="Качи публикация" isOpen={showAddPostModal} onCloseAction={onModalClose}>
-          <AddPostForm />
+          <AddPostForm submitAction={onModalClose} />
         </CustomModal>
       )}
 

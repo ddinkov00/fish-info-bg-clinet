@@ -1,9 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
+import { envConfig } from './environment.config';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC3-eSghnoLopUv4AZ8keiWfZJBdBmTuhc',
+  apiKey: envConfig.firebaseApiKey,
   authDomain: 'fish-info-bg.firebaseapp.com',
   projectId: 'fish-info-bg',
   storageBucket: 'fish-info-bg.appspot.com',

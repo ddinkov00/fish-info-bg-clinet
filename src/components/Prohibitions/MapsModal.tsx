@@ -21,7 +21,7 @@ export const MapsModal = (props: MapModalProps) => {
 
   return (
     <CustomModal
-      title={config?.title ? `Забрана за ${config.title}` : EMPTY_STRING}
+      title={config?.title ?? EMPTY_STRING}
       isOpen={Boolean(config)}
       onCloseAction={() => setConfig(undefined)}
     >

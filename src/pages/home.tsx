@@ -25,6 +25,7 @@ const Home = () => {
         flexDirection="column"
         alignItems="center"
         gap="30px"
+        paddingBottom="30px"
       >
         {posts.map((x) => {
           return <PostCard post={x} setMapModalConfig={setMapConfig} />;

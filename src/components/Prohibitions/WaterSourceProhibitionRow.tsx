@@ -60,9 +60,6 @@ export const WaterSourceProhibitionRow = (props: WaterSourceProhibitionRowProps)
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography fontWeight="bold" fontSize={15}>
-                Допълнителна информация:
-              </Typography>
               <Typography fontSize={13}>{row.description}</Typography>
             </Box>
           </Collapse>

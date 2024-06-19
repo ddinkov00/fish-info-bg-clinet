@@ -88,16 +88,19 @@ export const PostCard = (props: PostCardProps) => {
         <Typography variant="body2" color="text.secondary" noWrap={descriptionWrap}>
           {post.description}
         </Typography>
-        <Button
-          variant="text"
-          disableRipple
-          sx={{ padding: 0 }}
-          onClick={() => setDescriptionWrap(!descriptionWrap)}
-        >
-          <Typography variant="body2" color="primary" noWrap={descriptionWrap}>
-            {descriptionWrap ? 'Покажи' : 'Скрий'}
-          </Typography>
-        </Button>
+
+        {post.description.length > 74 && (
+          <Button
+            variant="text"
+            disableRipple
+            sx={{ padding: 0 }}
+            onClick={() => setDescriptionWrap(!descriptionWrap)}
+          >
+            <Typography variant="body2" color="primary" noWrap={descriptionWrap}>
+              {descriptionWrap ? 'Покажи' : 'Скрий'}
+            </Typography>
+          </Button>
+        )}
       </CardContent>
       <CardActions disableSpacing>
         <IconButton>

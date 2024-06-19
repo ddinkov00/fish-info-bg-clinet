@@ -57,7 +57,7 @@ export const CloseSeasonsTable = () => {
             <TableCell align="right">Надморска височина</TableCell>
             <TableCell align="right">Начало</TableCell>
             <TableCell align="right">Край</TableCell>
-            <TableCell align="right">Статус</TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

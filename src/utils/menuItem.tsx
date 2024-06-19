@@ -49,7 +49,7 @@ export const getMenuItemConfig = (
     route: 'prohibitions',
   },
   AddPost: {
-    text: 'Добави',
+    text: 'Публикувай',
     icon: <AddCircleOutlineOutlinedIcon />,
     iconSelected: <AddCircleOutlinedIcon />,
     onClick: () => setShowAddPostModal(true),
